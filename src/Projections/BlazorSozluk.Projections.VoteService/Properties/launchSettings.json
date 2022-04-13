@@ -1,0 +1,11 @@
+﻿{
+  "profiles": {
+    "BlazorSozluk.Projections.VoteService": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
