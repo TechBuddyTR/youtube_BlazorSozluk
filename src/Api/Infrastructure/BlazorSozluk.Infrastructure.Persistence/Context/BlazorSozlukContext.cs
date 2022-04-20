@@ -12,6 +12,11 @@ public class BlazorSozlukContext : DbContext
 {
     public const string DEFAULT_SCHEMA = "dbo";
 
+    public BlazorSozlukContext()
+    {
+
+    }
+
     public BlazorSozlukContext(DbContextOptions options) : base(options)
     {
     }
@@ -28,6 +33,18 @@ public class BlazorSozlukContext : DbContext
 
     public DbSet<EmailConfirmation> EmailConfirmations { get; set; }
 
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        if (!optionsBuilder.IsConfigured)
+        {
+            var connStr = "Data Source=localhost;Initial Catalog=YoutubeBlazorsozluk;Persist Security Info=True;User ID=sa;Password=Salih123!";
+            optionsBuilder.UseSqlServer(connStr, opt =>
+            {
+                opt.EnableRetryOnFailure();
+            });
+        }
+    }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());

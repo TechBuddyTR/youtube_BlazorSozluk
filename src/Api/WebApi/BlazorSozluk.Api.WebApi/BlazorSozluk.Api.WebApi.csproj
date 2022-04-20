@@ -10,4 +10,8 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure\BlazorSozluk.Infrastructure.Persistence\BlazorSozluk.Api.Infrastructure.Persistence.csproj" />
+  </ItemGroup>
+
 </Project>
