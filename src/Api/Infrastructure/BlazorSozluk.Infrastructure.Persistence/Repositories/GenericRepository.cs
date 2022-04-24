@@ -116,13 +116,13 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
 
     public virtual bool DeleteRange(Expression<Func<TEntity, bool>> predicate)
     {
-        dbContext.RemoveRange(predicate);
+        dbContext.RemoveRange(entity.Where(predicate));
         return dbContext.SaveChanges() > 0;
     }
 
     public virtual async Task<bool> DeleteRangeAsync(Expression<Func<TEntity, bool>> predicate)
     {
-        dbContext.RemoveRange(predicate);
+        dbContext.RemoveRange(entity.Where(predicate));
         return await dbContext.SaveChangesAsync() > 0;
     }
 
