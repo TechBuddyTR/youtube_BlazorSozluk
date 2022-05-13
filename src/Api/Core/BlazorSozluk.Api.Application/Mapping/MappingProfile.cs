@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace BlazorSozluk.Api.Application.Mapping;
-public class MappingProfile: Profile
+public class MappingProfile : Profile
 {
     public MappingProfile()
     {
@@ -22,6 +22,10 @@ public class MappingProfile: Profile
 
         CreateMap<CreateEntryCommand, Entry>()
             .ReverseMap();
+
+        CreateMap<Entry, GetEntriesViewModel>()
+            .ForMember(x => x.CommentCount, y => y.MapFrom(z => z.EntryComments.Count));
+
 
         CreateMap<CreateEntryCommentCommand, EntryComment>()
             .ReverseMap();
