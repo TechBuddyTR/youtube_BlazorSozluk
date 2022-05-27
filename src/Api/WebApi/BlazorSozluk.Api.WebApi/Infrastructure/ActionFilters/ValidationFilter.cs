@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace BlazorSozluk.Api.WebApi;
+namespace BlazorSozluk.Api.WebApi.Infrastructure.ActionFilters;
 
 public class ValidateModelStateFilter : IAsyncActionFilter
 {
@@ -13,7 +13,7 @@ public class ValidateModelStateFilter : IAsyncActionFilter
                                                             x.ErrorMessage : x.Exception?.Message)
                                                     .Distinct().ToList();
 
-            
+
             return;
         }
 
