@@ -47,7 +47,7 @@ public static class ApplicationBuilderExtension
             await WriteResponse(context, statusCode, validationResponse);
             return;
         }
-
+        
         var res = new
         {
             HttpStatusCode = (int)statusCode,

@@ -10,6 +10,11 @@ public class ValidationResponseModel
 {
     public IEnumerable<string> Errors { get; set; }
 
+    public ValidationResponseModel()
+    {
+
+    }
+
     public ValidationResponseModel(IEnumerable<string> errors)
     {
         Errors = errors;
