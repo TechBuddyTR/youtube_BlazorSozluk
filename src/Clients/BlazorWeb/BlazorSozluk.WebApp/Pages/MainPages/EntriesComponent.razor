@@ -1,0 +1,31 @@
+﻿@{
+    foreach (var entry in entries)
+    {
+        <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center border-0">
+            <a href="/entry/@entry.Id">@entry.Subject</a>
+            <span> <small class="text-muted">@entry.CommentCount</small> </span>
+        </li>
+    }
+}
+
+@code {
+    [Inject]
+    IEntryService entryService { get; set; }
+
+    List<GetEntriesViewModel> entries = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await RefreshList();
+    }
+
+
+    public async Task RefreshList()
+    {
+        entries = await entryService.GetEntires();
+
+        StateHasChanged();
+    }
+
+
+}

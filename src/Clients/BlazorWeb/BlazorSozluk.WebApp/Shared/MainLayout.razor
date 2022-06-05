@@ -1,8 +1,92 @@
 ﻿@inherits LayoutComponentBase
 
+<div class="navbar fixed-top text-white">
+
+    <div class="logo">
+        <a href="/" class="bg-white">
+            <img height="29" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Ek%C5%9Fi_S%C3%B6zl%C3%BCk_yeni_logo.svg/2560px-Ek%C5%9Fi_S%C3%B6zl%C3%BCk_yeni_logo.svg.png" />
+        </a>
+    </div>
+
+    <div class="search-box">
+
+        <div class="input-group">
+            <div class="form-outline">
+                <input type="search"
+                       class="form-control small"
+                       @bind-value="@searchText"
+                       @bind-value:event="oninput"
+                       @onkeypress="@SearchKeyDown"
+                       @onfocusout="@OnSearchFocusOut"
+                       placeholder="Search in Sozluk" />
+            </div>
+
+            <button type="button" class="btn btn-sozluk btn-success"
+                    @onclick="@Search"
+                    @onfocusout="@OnSearchFocusOut">
+                <i class="fa fa-search h-75"></i>
+            </button>
+        </div>
+
+        @if (showSearchResult)
+        {
+            <ul class="list-group">
+
+                @foreach (var searchItem in searchResults)
+                {
+                    <li class="list-group-item">
+                        <a @onclick="(async()=> await GoEntry(searchItem.Id))">
+                            @searchItem.Subject
+                        </a>
+                    </li>
+                }
+            </ul>
+        }
+
+    </div>
+    @*// TODO Enable this after auth is enabled*@
+    @* <AuthorizeView>
+    <Authorized>
+    <div class="top-nav">
+    <input type="button" class="form-control btn-success btn-sozluk w-auto" value="Create Entry" @onclick="@NavigateCreateEntryPage" />
+    <input type="button" class="form-control btn-success btn-sozluk w-auto" value="ME" @onclick="@NavigateMEPage" />
+    <input type="button" class="form-control btn-success btn-sozluk w-auto" value="Logout" @onclick="@NavigateLogoutPage" />
+    </div>
+
+    </Authorized>*@
+
+    @*<NotAuthorized>*@
+    <div class="top-nav">
+        <input type="button" class="form-control btn-success btn-sozluk w-auto" value="Login" @onclick="@NavigateLoginPage" />
+    </div>
+    @*</NotAuthorized>*@
+
+    @*</AuthorizeView>*@
+
+    <div class="sub-nav">
+        <a class="sub-nav-item active">bugün</a>
+        <a class="sub-nav-item">gündem</a>
+        <a class="sub-nav-item">debe</a>
+        <a class="sub-nav-item">sorunsallar</a>
+        <a class="sub-nav-item">takip</a>
+        <a class="sub-nav-item">son</a>
+        <a class="sub-nav-item">kenar</a>
+        <a class="sub-nav-item">çaylaklar</a>
+    </div>
+
+</div>
+
+
 <div class="page">
     <div class="sidebar">
-        <NavMenu />
+
+        <h5 class="text-white text-center siderbar-heading">@EntriesSubject</h5>
+        <a class="more-data" @onclick="@RefreshEntries">refresh</a>
+
+        <ul class="list-group">
+            <EntriesComponent @ref="@entriesComponent" />
+        </ul>
+
     </div>
 
     <main>
@@ -15,3 +99,77 @@
         </article>
     </main>
 </div>
+
+@code
+{
+    private EntriesComponent entriesComponent;
+    private string searchText;
+    private bool showSearchResult;
+    private List<SearchEntryViewModel> searchResults = new List<SearchEntryViewModel>();
+
+    public string EntriesSubject { get; set; } = "bugün";
+
+    [Inject]
+    NavigationManager navigationManager { get; set; }
+
+    [Inject]
+    IEntryService entryService { get; set; }
+
+    private async Task RefreshEntries()
+    {
+        await entriesComponent.RefreshList();
+    }
+
+    private void NavigateMEPage()
+    {
+        navigationManager.NavigateTo("/me");
+    }
+
+    private void NavigateLoginPage()
+    {
+        navigationManager.NavigateTo("/login");
+    }
+
+    private void NavigateLogoutPage()
+    {
+        navigationManager.NavigateTo("/logout");
+    }
+
+    private void NavigateCreateEntryPage()
+    {
+        navigationManager.NavigateTo("/createEntry");
+    }
+
+    private async Task SearchKeyDown(KeyboardEventArgs e)
+    {
+        if (e.Code == "Enter" || e.Code == "NumpadEnter")
+        {
+            await Search();
+        }
+    }
+
+    private async Task OnSearchFocusOut()
+    {
+        await Task.Delay(100);
+        if (showSearchResult)
+            showSearchResult = false;
+    }
+
+    private async Task Search()
+    {
+        if (string.IsNullOrEmpty(searchText))
+            return;
+
+        searchResults = await entryService.SearchBySubject(searchText);
+
+        showSearchResult = true;
+
+        searchText = string.Empty;
+    }
+
+    private async Task GoEntry(Guid entryId)
+    {
+        await OnSearchFocusOut();
+        navigationManager.NavigateTo($"/entry/{entryId}");
+    }
+}

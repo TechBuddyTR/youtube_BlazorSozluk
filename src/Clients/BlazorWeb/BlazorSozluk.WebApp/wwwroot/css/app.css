@@ -1,7 +1,7 @@
 ﻿@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
 html, body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Source Sans Pro',sans-serif
 }
 
 h1:focus {
@@ -12,14 +12,54 @@ a, .btn-link {
     color: #0071c1;
 }
 
+a {
+    text-decoration: none;
+    color: #bdbdbd;
+    font-size: 14px;
+}
+
+    a:hover, a:focus, a:active {
+        text-decoration: none;
+    }
+
+input:not([type="button"]).form-control {
+    background-color: #474747;
+    color: white;
+    border-color: white;
+}
+
+
+label {
+    color: #bdbdbd;
+}
+
+.btn-success.btn-sozluk {
+    color: white;
+    background-color: #68a138;
+    border-color: #3e6121;
+    font-size: 13px;
+}
+
+    .btn-success.btn-sozluk:hover {
+        background-color: #5c8e31;
+    }
+
+    .btn-success.btn-sozluk:focus, :active {
+        box-shadow: none;
+    }
+
 .btn-primary {
     color: #fff;
     background-color: #1b6ec2;
     border-color: #1861ac;
 }
 
+.article.content {
+    padding: 1px 1px 1px 1px;
+}
+
 .content {
-    padding-top: 1.1rem;
+    padding: 1px 1px 1px 1px;
 }
 
 .valid.modified:not([type=checkbox]) {
@@ -33,6 +73,136 @@ a, .btn-link {
 .validation-message {
     color: red;
 }
+
+
+
+.list-group {
+    margin-right: 5px;
+}
+
+.list-group-item {
+    background-color: #2d2d2d;
+    color: #bdbdbd;
+    padding: 8px 10px 8px 2px;
+}
+
+    .list-group-item a {
+        color: #bdbdbd;
+        font-size: 14px;
+    }
+
+    .list-group-item:hover {
+        background-color: #1f1f1f;
+        text-decoration: none;
+    }
+
+
+.entry-subject {
+    color: #bdbdbd;
+}
+
+.entry-content {
+    color: #bdbdbd;
+    font-size: 16px;
+}
+
+.entry-author {
+    color: #53a245;
+    font-size: 13px;
+    background-color: #2d2d2d;
+}
+
+    .entry-author a {
+        color: #53a245;
+        background-color: #2d2d2d;
+    }
+
+        .entry-author a:hover {
+            text-decoration: underline;
+        }
+
+.entry-date {
+    color: #bdbdbd;
+    font-size: 12px;
+    background-color: #2d2d2d;
+}
+
+    .entry-date a {
+        color: #666666;
+        background-color: #2d2d2d;
+    }
+
+        .entry-date a:hover, a:focus {
+            cursor: auto;
+            text-decoration: none;
+        }
+
+.entry-vote {
+    cursor: pointer;
+}
+
+.entry-fav {
+    font-size: 14px;
+    cursor: pointer;
+}
+
+    .entry-fav span:hover, span:focus, span:active {
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+.entry-faved span {
+    color: #53a245;
+}
+
+.entry-not-faved {
+    color: #bdbdbd;
+}
+
+
+
+
+.entry-comment-add-container {
+    background-color: #1c1c1c !important;
+    padding: 25px 20px 20px 20px;
+}
+
+.entry-comment-add {
+    width: 100%;
+    background-color: #1c1c1c !important;
+}
+
+.entry-comment-actions {
+    padding: 25px 15px 15px 15px;
+}
+
+.entry-comment-textarea {
+    background-color: #494949;
+    width: 100%;
+    color: white;
+    height: 250px;
+    border-color: #494949;
+    border-radius: 3px;
+    outline: none !important;
+}
+
+.entry-comment-actions {
+    padding-top: 10px;
+    padding-left: 5px;
+}
+
+
+
+
+.card-body {
+    background-color: #2d2d2d;
+    padding: 5px;
+}
+
+.card-text {
+    color: #bdbdbd;
+}
+
 
 #blazor-error-ui {
     background: lightyellow;
