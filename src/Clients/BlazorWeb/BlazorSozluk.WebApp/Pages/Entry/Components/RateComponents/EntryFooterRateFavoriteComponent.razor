@@ -1,0 +1,87 @@
+﻿@using BlazorSozluk.WebApp.Infrastructure.Models
+@using Blazored.LocalStorage
+
+
+<div class="container">
+    <span>
+        <a class="p-1" title="Up vote!">
+            <span class="oi oi-arrow-top entry-vote @(Vote == VoteType.UpVote ? "text-success":"text-secondary")"
+                  @onclick="(() => UpClicked())"> </span>
+        </a>
+
+        <a class="p-3" title="Down vote!">
+            <span class="oi oi-arrow-bottom entry-vote @(Vote == VoteType.DownVote ? "text-danger":"text-secondary")"
+                  @onclick="(() => DownClicked())"> </span>
+        </a>
+
+        <EntryFooterFavoriteComponent EntryId="@EntryId"
+                                      FavoritedCount="@FavoritedCount"
+                                      IsFavorited="@IsFavorited"
+                                      OnFavClicked="@FavoritedClicked" />
+    </span>
+</div>
+
+
+
+
+
+@code {
+
+    [Inject]
+    ISyncLocalStorageService localStorage { get; set; }
+
+    [Parameter]
+    public Common.ViewModels.VoteType Vote { get; set; }
+
+    [Parameter]
+    public EventCallback<FavClickedEventArgs> OnFavClicked { get; set; }
+
+    [Parameter]
+    public EventCallback<VoteClickedEventArgs> OnVoteClicked { get; set; }
+
+    [Parameter]
+    public bool IsFavorited { get; set; }
+
+    [Parameter]
+    public Guid? EntryId { get; set; }
+
+    [Parameter]
+    public int FavoritedCount { get; set; } = 0;
+
+    private async Task FavoritedClicked()
+    {
+        var ea = new FavClickedEventArgs();
+
+        ea.EntryId = EntryId.Value;
+        ea.IsFaved = !IsFavorited;
+        await OnFavClicked.InvokeAsync(ea);
+
+        StateHasChanged();
+    }
+
+
+    private async Task DownClicked()
+    {
+        var ea = new VoteClickedEventArgs();
+
+        ea.EntryId = EntryId.Value;
+        ea.DownVoteDeleted = Vote == VoteType.DownVote;
+        ea.IsDownVoteClicked = true;
+
+        await OnVoteClicked.InvokeAsync(ea);
+        StateHasChanged();
+    }
+
+    private async Task UpClicked()
+    {
+        var ea = new VoteClickedEventArgs();
+
+        ea.EntryId = EntryId.Value;
+        ea.UpVoteDeleted = Vote == VoteType.UpVote;
+        ea.IsUpVoteClicked = true;
+
+        await OnVoteClicked.InvokeAsync(ea);
+        
+        StateHasChanged();
+    }
+}

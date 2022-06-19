@@ -1,0 +1,22 @@
+﻿@if (entries != null)
+{
+    foreach (var entry in entries.Results)
+    {
+        <EntryViewerComponent Entry="@entry" />
+        <br />
+    }
+}
+
+
+@code {
+    [Inject]
+    IEntryService entryService { get; set; }
+
+    PagedViewModel<GetEntryDetailViewModel> entries;
+
+    protected override async Task OnInitializedAsync()
+    {
+        entries = await entryService.GetMainPageEntries(1, 20);
+        //TODO Pagination will be handled
+    }
+}

@@ -1,0 +1,92 @@
+﻿@using BlazorSozluk.WebApp.Infrastructure.Models
+@if (Entry != null)
+{
+
+    <div class="card border-0">
+
+        <div class="card-body">
+            <h5 class="card-title"><a href="/entry/@Entry.Id"><strong class="entry-subject">@Entry.Subject</strong></a> </h5>
+            <br />
+            <p class="entry-content">@Entry.Content</p>
+
+            @if (MyEntries)
+            {
+                <EntryFooterFavoriteComponent EntryId="@Entry.Id"
+                                      OnFavClicked="@OnFavClicked"
+                                      FavoritedCount="@Entry.FavoritedCount"
+                                      IsFavorited="@Entry.IsFavorited" />
+            }
+            else
+            {
+                <EntryFooterRateFavoriteComponent EntryId="@Entry.Id"
+                                          OnFavClicked="@OnFavClicked"
+                                          OnVoteClicked="@OnVoteClicked"
+                                          Vote="@Entry.VoteType"
+                                          FavoritedCount="@Entry.FavoritedCount"
+                                          IsFavorited="@Entry.IsFavorited" />
+            }
+
+            <EntryFooterAuthorComponent UserName="@Entry.CreatedByUserName"
+                                    CreateDate="@Entry.CreatedDate" />
+
+        </div>
+    </div>
+}
+
+
+@code {
+
+    [Parameter]
+    public GetEntryDetailViewModel Entry { get; set; }
+
+    [Parameter]
+    public bool MyEntries { get; set; }
+
+    [Inject]
+    IVoteService voteService { get; set; }
+
+    [Inject]
+    IFavService favService { get; set; }
+
+    private async Task OnFavClicked(FavClickedEventArgs args)
+    {
+        if (args.IsFaved)
+        {
+            await favService.CreateEntryFav(args.EntryId.Value);
+            Entry.IsFavorited = true;
+            Entry.FavoritedCount++;
+        }
+        else
+        {
+            await favService.DeleteEntryFav(args.EntryId.Value);
+            Entry.IsFavorited = false;
+            Entry.FavoritedCount--;
+        }
+
+        StateHasChanged();
+    }
+
+    private async Task OnVoteClicked(VoteClickedEventArgs args)
+    {
+        if (args.UpVoteDeleted || args.DownVoteDeleted)
+        {
+            await voteService.DeleteEntryVote(args.EntryId);
+            Entry.VoteType = VoteType.None;
+            return;
+        }
+
+        if (args.IsUpVoteClicked)
+        {
+            await voteService.CreateEntryUpVote(args.EntryId);
+            Entry.VoteType = VoteType.UpVote;
+            return;
+        }
+
+        if (args.IsDownVoteClicked)
+        {
+            await voteService.CreateEntryDownVote(args.EntryId);
+            Entry.VoteType = VoteType.DownVote;
+            return;
+        }
+    }
+}
