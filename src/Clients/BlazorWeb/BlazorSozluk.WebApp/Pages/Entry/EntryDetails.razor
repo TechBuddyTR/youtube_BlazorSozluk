@@ -1,0 +1,68 @@
+﻿@page "/entry/{id:guid}"
+
+@if (entry is not null)
+{
+    <EntryViewerComponent Entry="@entry" />
+    <br />
+
+    if (comments is not null)
+    {
+        foreach (var comment in comments.Results)
+        {
+            <BlazorSozluk.WebApp.Pages.EntryComment.Components.EntryCommmentViewerComponent 
+                EntryComment="@comment"
+                />
+        }
+    }
+
+    <br />
+    // TODO Pagination Component will be here
+
+    <AuthorizeView>
+        <Authorized>
+            <br/>
+            <br/>
+
+            <BlazorSozluk.WebApp.Pages.EntryComment.Components.CreateEntryCommentComponent 
+                EntryId="@entry.Id"
+                EntrySubject="@entry.Subject"
+                OnClicked="@OnCommentCreate"
+                    />
+
+        </Authorized>
+    </AuthorizeView>
+}
+
+@code {
+
+    [Parameter]
+    public Guid id { get; set; }
+
+    [Inject]
+    IEntryService entryService { get; set; }
+
+
+    private GetEntryDetailViewModel entry = new();
+    private PagedViewModel<GetEntryCommentsViewModel> comments = new();
+    private int currentPage = 1;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        entry = await entryService.GetEntryDetail(id);
+
+        await RefreshComments(1);
+
+        currentPage = comments.PageInfo.CurrentPage;
+    }
+
+    public async Task OnCommentCreate(CreateEntryCommentCommand command)
+    {
+        await entryService.CreateEntryComment(command);
+        await RefreshComments(currentPage);
+    }
+
+    private async Task RefreshComments(int pageNumber)
+    {
+        comments = await entryService.GetEntryComments(entry.Id, pageNumber, 10);
+    }
+}
