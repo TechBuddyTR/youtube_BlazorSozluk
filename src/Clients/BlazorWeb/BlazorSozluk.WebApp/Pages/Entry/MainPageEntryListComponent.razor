@@ -5,6 +5,12 @@
         <EntryViewerComponent Entry="@entry" />
         <br />
     }
+
+    <br />
+    <br />
+    <PaginationComponent TotalPage="@entries.PageInfo.TotalPageCount"
+                         CurrentPage="@currentPage"
+                         OnPageChanged="@OnPageChanged" />
 }
 
 
@@ -12,11 +18,19 @@
     [Inject]
     IEntryService entryService { get; set; }
 
+    private int currentPage = 1;
+
     PagedViewModel<GetEntryDetailViewModel> entries;
+
+    public async Task OnPageChanged(int pageNumber)
+    {
+        currentPage = pageNumber;
+        entries = await entryService.GetMainPageEntries(currentPage, 5);
+    }
 
     protected override async Task OnInitializedAsync()
     {
-        entries = await entryService.GetMainPageEntries(1, 20);
+        entries = await entryService.GetMainPageEntries(currentPage, 5);
         //TODO Pagination will be handled
     }
 }
