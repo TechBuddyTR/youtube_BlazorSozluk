@@ -63,4 +63,29 @@ public static class QueueFactory
 
         return consumer;
     }
+
+    public static EventingBasicConsumer Receive<T>(this EventingBasicConsumer consumer, Action<T> act)
+    {
+        consumer.Received += (m, eventArgs) => 
+        {
+            var body = eventArgs.Body.ToArray();
+            var message = Encoding.UTF8.GetString(body);
+
+            var model = JsonSerializer.Deserialize<T>(message);
+
+            act(model);
+            consumer.Model.BasicAck(eventArgs.DeliveryTag, false);
+        };
+
+        return consumer;
+    }
+
+    public static EventingBasicConsumer StartConsuming(this EventingBasicConsumer consumer, string queueName)
+    {
+        consumer.Model.BasicConsume(queue: queueName,
+                                    autoAck: false,
+                                    consumer: consumer);
+
+        return consumer;
+    }
 }
