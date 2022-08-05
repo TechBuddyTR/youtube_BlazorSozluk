@@ -38,8 +38,6 @@ public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, Guid>
 
         var rows = await userRepository.UpdateAsync(dbUser);
 
-        // Check if email changed
-
         if (emailChanged && rows > 0)
         {
             var @event = new UserEmailChangedEvent()
