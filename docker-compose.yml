@@ -1,0 +1,22 @@
+version: '3.4'
+
+services:
+  blazorsozluk.webapp:
+    image: ${DOCKER_REGISTRY-}blazorsozlukwebapp
+    build:
+      context: .
+      dockerfile: src/Clients/BlazorWeb/BlazorSozluk.WebApp/Dockerfile
+
+  blazorsozluk.api.webapi:
+    image: ${DOCKER_REGISTRY-}blazorsozlukapiwebapi
+    build:
+      context: .
+      dockerfile: src/Api/WebApi/BlazorSozluk.Api.WebApi/Dockerfile
+
+
+  blazorsozluk.projections.voteservice:
+    image: ${DOCKER_REGISTRY-}blazorsozlukprojectionsvoteservice
+    build:
+      context: .
+      dockerfile: src/Projections/BlazorSozluk.Projections.VoteService/Dockerfile
+
