@@ -39,12 +39,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorSozluk.Projections.Vo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorSozluk.WebApp", "src\Clients\BlazorWeb\BlazorSozluk.WebApp\BlazorSozluk.WebApp.csproj", "{66B898E6-7DB4-4750-B7C8-52ED0C9DD584}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DDD518EB-959F-4E2B-A4F9-F7F93D74F185}"
-	ProjectSection(SolutionItems) = preProject
-		DockerSteps_External.txt = DockerSteps_External.txt
-	EndProjectSection
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{F5A59894-C50C-4B1F-9DE1-5BD7CB5EE3E4}"
 EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{CC0DA6D0-5B8E-4B2C-8161-98CA900BC7C2}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7ACACAF8-0968-4A7F-AC9D-74F5D3223DAF}"
+	ProjectSection(SolutionItems) = preProject
+		DockerComposeSteps_External.txt = DockerComposeSteps_External.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -88,10 +88,10 @@ Global
 		{66B898E6-7DB4-4750-B7C8-52ED0C9DD584}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66B898E6-7DB4-4750-B7C8-52ED0C9DD584}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66B898E6-7DB4-4750-B7C8-52ED0C9DD584}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CC0DA6D0-5B8E-4B2C-8161-98CA900BC7C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CC0DA6D0-5B8E-4B2C-8161-98CA900BC7C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CC0DA6D0-5B8E-4B2C-8161-98CA900BC7C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CC0DA6D0-5B8E-4B2C-8161-98CA900BC7C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5A59894-C50C-4B1F-9DE1-5BD7CB5EE3E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5A59894-C50C-4B1F-9DE1-5BD7CB5EE3E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5A59894-C50C-4B1F-9DE1-5BD7CB5EE3E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5A59894-C50C-4B1F-9DE1-5BD7CB5EE3E4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

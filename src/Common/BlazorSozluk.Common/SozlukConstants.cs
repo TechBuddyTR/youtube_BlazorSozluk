@@ -10,7 +10,7 @@ public class SozlukConstants
 #if DEBUG
     public const string RabbitMQHost = "localhost";
 #else
-    public const string RabbitMQHost = "c_rabbitmq";
+public const string RabbitMQHost = "c_rabbitmq";
 #endif
 
 
