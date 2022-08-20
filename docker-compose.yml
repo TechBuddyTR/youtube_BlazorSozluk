@@ -8,6 +8,7 @@ services:
       dockerfile: src/Clients/BlazorWeb/BlazorSozluk.WebApp/Dockerfile
 
   blazorsozluk.api.webapi:
+    container_name: c_blazorsozlukapi
     image: ${DOCKER_REGISTRY-}blazorsozlukapiwebapi
     build:
       context: .

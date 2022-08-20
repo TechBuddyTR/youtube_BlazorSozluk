@@ -25,9 +25,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Update="nginx.conf">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
+	  <None Update="nginx.conf">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
 	</ItemGroup>
 
 </Project>

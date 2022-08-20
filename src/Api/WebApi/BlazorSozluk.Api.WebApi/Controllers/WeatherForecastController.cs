@@ -20,7 +20,7 @@ public class WeatherForecastController : ControllerBase
     [HttpGet(Name = "GetWeatherForecast")]
     public IEnumerable<WeatherForecast> Get()
     {
-        throw new Exception("Test Exception Message");
+        //throw new Exception("Test Exception Message");
 
         return Enumerable.Range(1, 5).Select(index => new WeatherForecast
         {
