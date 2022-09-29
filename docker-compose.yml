@@ -1,0 +1,41 @@
+version: '3.4'
+
+services:
+  blazorsozluk.webapp:
+    container_name: c_blazorsozlukwebapp
+    image: ${DOCKER_REGISTRY-}blazorsozlukwebapp
+    build:
+      context: .
+      dockerfile: src/Clients/BlazorWeb/BlazorSozluk.WebApp/Dockerfile
+
+  blazorsozluk.api.webapi:
+    container_name: c_blazorsozlukapi
+    image: ${DOCKER_REGISTRY-}blazorsozlukapiwebapi
+    build:
+      context: .
+      dockerfile: src/Api/WebApi/BlazorSozluk.Api.WebApi/Dockerfile
+
+
+  blazorsozluk.projections.voteservice:
+    container_name: c_blazorsozlukvote
+    image: ${DOCKER_REGISTRY-}blazorsozlukprojectionsvoteservice
+    build:
+      context: .
+      dockerfile: src/Projections/BlazorSozluk.Projections.VoteService/Dockerfile
+
+
+  blazorsozluk.projections.favoriteservice:
+    container_name: c_blazorsozlukfavorite
+    image: ${DOCKER_REGISTRY-}blazorsozlukprojectionsfavoriteservice
+    build:
+      context: .
+      dockerfile: src/Projections/BlazorSozluk.Projections.FavoriteService/Dockerfile
+
+
+  blazorsozluk.projections.userservice:
+    container_name: c_blazorsozlukuser
+    image: ${DOCKER_REGISTRY-}blazorsozlukprojectionsuserservice
+    build:
+      context: .
+      dockerfile: src/Projections/BlazorSozluk.Projections.User/Dockerfile
+

@@ -4,6 +4,10 @@
 		<TargetFramework>net6.0</TargetFramework>
 		<Nullable>disable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
+		<DockerComposeProjectPath>..\..\..\..\docker-compose.dcproj</DockerComposeProjectPath>
+		<UserSecretsId>6da8d287-0885-443d-87c7-22f0f9f7e9c1</UserSecretsId>
+
+		<!--<ContainerDevelopmentMode>Regular</ContainerDevelopmentMode>-->
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -18,6 +22,16 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\..\Common\BlazorSozluk.Common\BlazorSozluk.Common.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="nginx.conf">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
 	</ItemGroup>
 
 </Project>

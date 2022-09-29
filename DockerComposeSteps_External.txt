@@ -1,0 +1,14 @@
+1) Create external networks so to add external containers in
+
+docker network create blazor_backend --attachable
+
+docker network create blazor_frontend --attachable
+
+2) Add external container into the newly created networks
+
+docker network connect blazor_backend c_sqlserver_external
+docker network connect blazor_backend c_rabbitmq
+
+3) Replace RabbitMQ host name constants with container name (c_rabbitmq)
+
+4) Replace DB Host name with container name (c_sqlserver_external)

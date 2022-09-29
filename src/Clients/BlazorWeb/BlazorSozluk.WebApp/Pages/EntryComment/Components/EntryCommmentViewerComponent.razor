@@ -36,13 +36,13 @@
     {
         if (args.IsFaved)
         {
-            await favService.CreateEntryFav(args.EntryId.Value);
+            await favService.CreateEntryCommentFav(args.EntryId.Value);
             EntryComment.IsFavorited = true;
             EntryComment.FavoritedCount++;
         }
         else
         {
-            await favService.DeleteEntryFav(args.EntryId.Value);
+            await favService.DeleteEntryCommentFav(args.EntryId.Value);
             EntryComment.IsFavorited = false;
             EntryComment.FavoritedCount--;
         }
@@ -54,21 +54,21 @@
     {
         if (args.UpVoteDeleted || args.DownVoteDeleted)
         {
-            await voteService.DeleteEntryVote(args.EntryId);
+            await voteService.DeleteEntryCommentVote(args.EntryId);
             EntryComment.VoteType = VoteType.None;
             return;
         }
 
         if (args.IsUpVoteClicked)
         {
-            await voteService.CreateEntryUpVote(args.EntryId);
+            await voteService.CreateEntryCommentUpVote(args.EntryId);
             EntryComment.VoteType = VoteType.UpVote;
             return;
         }
 
         if (args.IsDownVoteClicked)
         {
-            await voteService.CreateEntryDownVote(args.EntryId);
+            await voteService.CreateEntryCommentDownVote(args.EntryId);
             EntryComment.VoteType = VoteType.DownVote;
             return;
         }

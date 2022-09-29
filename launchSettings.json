@@ -1,0 +1,16 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "commandVersion": "1.0",
+      "composeLaunchAction": "LaunchBrowser",
+      "composeLaunchServiceName": "blazorsozluk.webapp",
+      "composeLaunchUrl": "{Scheme}://localhost:{ServicePort}",
+      "serviceActions": {
+        "blazorsozluk.webapp": "StartDebugging",
+        "blazorsozluk.api.webapi": "DoNotStart",
+        "blazorsozluk.projections.voteservice": "DoNotStart"
+      }
+    }
+  }
+}

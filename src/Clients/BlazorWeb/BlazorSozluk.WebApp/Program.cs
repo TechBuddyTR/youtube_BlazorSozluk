@@ -15,8 +15,7 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddHttpClient("WebApiClient", client =>
 {
-    client.BaseAddress = new Uri("https://localhost:5001");
-    //client.BaseAddress = new Uri("https://localhost:44361");
+    client.BaseAddress = new Uri("http://localhost:8080");
 })
 .AddHttpMessageHandler<AuthTokenHandler>();
 
